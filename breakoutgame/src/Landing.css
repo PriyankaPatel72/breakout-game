@@ -6,3 +6,15 @@
     padding: 0 0rem;
     height: 64px;
 }
+
+.individual-game {
+    background-color: lightgray;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#main-screen {
+    display: flex;
+    flex-direction: row;
+}
