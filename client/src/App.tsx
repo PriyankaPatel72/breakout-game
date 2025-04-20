@@ -10,6 +10,9 @@ function App() {
         <Router basename="/">
           <Routes>
             <Route path="/" element={<Landing admin={true} />} />
+            <Route path="/login" element={<Landing admin={true} />} />
+            <Route path="/admin" element={<Landing admin={true} />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Router>
       );
