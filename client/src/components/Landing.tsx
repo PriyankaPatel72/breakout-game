@@ -11,28 +11,26 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     return (
 
-        <>
-            <div id="navbar">
-                <Menu {...props} />
-                <AccountMenu />
-            </div>
-
-            <section className="hero">
-                <div id="main-screen">
-                    <div id="game-list">
-                        {games.map((game, index) => (
-                            <div key={index} className="individual-game">
-                                <h3>{game.name}</h3>
-                                <p>{game.description}</p>
-                                <button onClick={() => props.admin.startGame(game.id)}>Play</button>
-                            </div>
-                        ))}
-                </div>
-                    <div id="leaderboard">
-                        <h1>Leaderboard</h1>
+        <><div id="navbar">
+            <Menu {...props} />
+            <AccountMenu />
+        </div>
+        <div id="main-screen">
+            <div id="game-list">
+                {games.map((game, index) => (
+                    <div key={index} className="individual-game">
+                        <h3>{game.name}</h3>
+                        <p>{game.description}</p>
+                        <button onClick={() => props.admin.startGame(game.id)}>Play</button>
                     </div>
-                </div>
-            </section>
+                ))}
+        </div>
+        <div id="leaderboard">
+            <h1 id="leaderboard-title"> Leaderboard</h1>
+        </div>
+        </div>
+        
+        
         </>
     )
 
