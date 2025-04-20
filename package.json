@@ -1,5 +1,8 @@
 {
     "scripts": {
         "start": "cd client && npm run dev"
+    },
+    "dependencies": {
+        "react": "^19.1.0"
     }
 }
