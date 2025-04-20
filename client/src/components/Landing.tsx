@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import React from 'react';
-import './Landing.css'
+import '../App.css'
 import Menu from './Menu.tsx'
 import { JSX } from 'react/jsx-runtime';
 import AccountMenu from './UserDel.tsx';
