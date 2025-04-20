@@ -26,7 +26,7 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 ))}
         </div>
         <div id="leaderboard">
-            <h1 id="leaderboard-title">Leaderboard</h1>
+            <h1 id="leaderboard-title"> Leaderboard</h1>
         </div>
         </div>
         
