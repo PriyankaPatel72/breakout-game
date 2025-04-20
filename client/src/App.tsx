@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 import Landing from "./components/Landing.tsx"
+import AdminHome from "./components/AdminHome.tsx"
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing admin={true} />} />
             <Route path="/login" element={<Landing admin={true} />} />
-            <Route path="/admin" element={<Landing admin={true} />} />
+            <Route path="/admin" element={<AdminHome admin={true} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Router>
