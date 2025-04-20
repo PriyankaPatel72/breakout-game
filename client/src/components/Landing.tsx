@@ -3,7 +3,7 @@ import React from 'react';
 import '../App.css'
 import Menu from './Menu.tsx'
 import { JSX } from 'react/jsx-runtime';
-import AccountMenu from './UserDel.tsx';
+import AccountMenu from './AccountMenu.tsx';
 import games from './games.tsx';
 
 
@@ -13,7 +13,6 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
         <><div id="navbar">
             <Menu {...props} />
-            <AccountMenu />
         </div>
         <div id="main-screen">
             <div id="game-list">
