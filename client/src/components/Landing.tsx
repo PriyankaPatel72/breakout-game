@@ -17,6 +17,7 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
         </div>
         <div id="main-screen">
             <div id="game-list">
+                <h1 id="game-title">Weekly Assingments</h1>
                 {games.map((game, index) => (
                     <div key={index} className="individual-game">
                         <h3>{game.name}</h3>
@@ -29,7 +30,6 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
             <h1 id="leaderboard-title"> Leaderboard</h1>
         </div>
         </div>
-        
         
         </>
     )
