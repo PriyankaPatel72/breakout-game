@@ -50,3 +50,6 @@ class QuestionCreateRequest(BaseModel):
 
 class AttendanceRequest(BaseModel):
     warmupId: int
+
+class SubmitRequest(BaseModel):
+    answers: Dict[str, str]

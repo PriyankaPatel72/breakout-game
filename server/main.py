@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 #from bson import ObjectId
-from models import SignupRequest, LoginRequest, AdminCreateRequest, WarmupCreateRequest, QuestionCreateRequest, AttendanceRequest
+from models import SignupRequest, LoginRequest, AdminCreateRequest, WarmupCreateRequest, QuestionCreateRequest, SubmitRequest
 from db import db
 from auth import get_pw_hash, get_user, format_admin, format_student
 
@@ -138,9 +138,9 @@ def get_attendance():
 
 #SCORE HANDLING
 #everyone sees scores on leaderboard
-@app.get('/leaderboard')
-def get_leaderboard():
-    users = 
+# @app.get('/leaderboard')
+# def get_leaderboard():
+#     users = 
 
 #HANDLING WARMUP QUIZ LOGIC:
 #user submits warmup quiz - handle attendance + stats
@@ -148,20 +148,20 @@ def get_leaderboard():
 async def submit(username: str, id: int, sub_req: SubmitRequest):
     user = await db.users.find_one({"username" : username})
     if not user: 
-        HTTPException(); #user not found 
+        raise HTTPException(); #user not found 
     
     warmup = await db.warmups.find_one({"id" : id})
     if not warmup:
-        HTTPException(); #warmup not found
+        raise HTTPException(); #warmup not found
     
     correct = 0
     total = len(warmup["questions"])
 
     for question in warmup["questions"]:
-        if sub_req.answers.get(question["id"]) == question['answer']:
+        if sub_req.answers.get(str(question["id"])) == question['answer']:
             correct += 1
 
-    await db.users.updateOne(
+    await db.users.update_one(
         {"username" : username},
         {
             "$set": {
