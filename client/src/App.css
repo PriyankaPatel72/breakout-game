@@ -5,7 +5,6 @@
     background-color: #111; 
     padding: 0.5rem 2rem;
     height: 64px;
-    box-shadow: 0 0 15px #08e9f9;
     font-family: Impact;
 }
 
@@ -17,6 +16,8 @@
     padding: 0.25rem 1rem;
     height: 50px;
     box-shadow: 0 0 10px #08e9f9;
+    padding: 0.5rem 2rem;
+    height: 70px;
     font-family: Impact;
     position: fixed;
     bottom: 0;
