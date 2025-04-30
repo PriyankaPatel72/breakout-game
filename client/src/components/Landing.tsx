@@ -18,7 +18,7 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
             <div className="main-screen">
                 <div id="game-list">
-                    <h1 id="game-title">Weekly Assingments</h1>
+                    <h1 id="game-title">Weekly Warmups</h1>
                     {games.map((game, index) => (
                         <div key={index} className="individual-game">
                             <h3>{game.name}</h3>
