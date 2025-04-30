@@ -23,7 +23,7 @@ export default function AccountMenu(props: any) {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%' }}>
       {props.admin && (
       <>
       {/* HANDLE CLICK FOR ATTENDANCE */}
