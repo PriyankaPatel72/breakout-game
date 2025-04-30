@@ -55,6 +55,9 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
     return (
         <>
             <div className="navbar">
+                <div id="web-logo" onClick={() => navigate("/")}>
+                    <img src={image} alt="Home"/>
+                </div>
                 <Menu {...props} />
             </div>
 

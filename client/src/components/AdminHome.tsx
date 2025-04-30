@@ -65,9 +65,9 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
     return (
         <>
             <div className="navbar">
-                <a id="web-logo" href="/">
+                <div id="web-logo" onClick={() => navigate("/")}>
                     <img src={image} alt="Home"/>
-                </a>
+                </div>
                 <Menu {...props} />
             </div>
 
