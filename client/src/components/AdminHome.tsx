@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../App.css'
-import Menu from './Menu.tsx'
+import Header from './Header';
 import image from '../assets/adc.png'
 
 import { JSX } from 'react/jsx-runtime';
@@ -64,12 +64,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     return (
         <>
-            <div className="navbar">
-                <div id="web-logo" onClick={() => navigate("/")}>
-                    <img src={image} alt="Home"/>
-                </div>
-                <Menu {...props} />
-            </div>
+            <Header admin={props.admin}></Header>
 
             <div className="main-screen">
                 <div className="warmup-box">
