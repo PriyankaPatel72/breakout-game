@@ -51,7 +51,7 @@
 
 .main-screen {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-image: linear-gradient(rgba(32, 163, 189, 0.86), rgb(79, 13, 185));
     gap: 40px;
     padding: 2rem;
@@ -382,8 +382,56 @@
     gap: 10px;
 }
 
-#controls {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+/*Attendance Page*/
+.attendance-container {
+    flex-direction: column;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #ffffff;
+    color: white;
+    font-family: Impact;
+    max-width: 90%;
+    margin: auto;
+    height: fit-content;
 }
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.attendance-table th {
+    text-align: center;
+    color: #19e0ff;
+    border-bottom: 2px solid #19e0ff;
+}
+
+.attendance-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    font-size: 1.2rem;
+}
+
+.attendance-check {
+    color: #00ff88;
+    font-size: 1.3rem;
+}
+
+.attendance-cross {
+    color: #ff5050;
+    font-size: 1.3rem;
+}
+
+.attendance-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: white;
+    font-family: Impact;
+}
+
