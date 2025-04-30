@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -15,12 +16,20 @@ import Logout from '@mui/icons-material/Logout';
 export default function AccountMenu(props: any) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate()
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleClickAdmin = (event: React.MouseEvent<HTMLElement>) => {
+    navigate("/admin")
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%' }}>
@@ -32,7 +41,7 @@ export default function AccountMenu(props: any) {
       </Typography>
 
       {/* HANDLE CLICK FOR ADMIN PAGE */}
-      <Typography onClick={handleClick} sx={{ minWidth: 100 }}>
+      <Typography onClick={handleClickAdmin} sx={{ minWidth: 100 }}>
         Admin
       </Typography>
       </>
