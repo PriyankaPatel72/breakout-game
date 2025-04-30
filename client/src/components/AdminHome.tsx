@@ -63,12 +63,12 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     return (
         <>
-            <div id="navbar">
+            <div className="navbar">
                 <Menu {...props} />
                 <AccountMenu />
             </div>
 
-            <section className="hero">
+            <div className="main-screen">
                 <div className="warmup-box">
 
                     {/* Title and Warmup selector */}
@@ -93,39 +93,39 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                     }
 
                     <div>
-                        <div>Question Bank</div>
-                        {warmups[warmup].questions.map((q) =>
-                            <>
+                        <div id="question-bank-title">Question Bank</div>
+                        {warmups[warmup].questions.map((q, i) =>
+                            <div key={i} className="question-block">
                                 <h3>{q[0]}</h3>
-                                {q.slice(1).map((answer) =>
-                                    <h4>{answer}</h4>
+                                {q.slice(1).map((answer, j) =>
+                                    <h4 key={j}>{answer}</h4>
                                 )}
-                            </>
+                            </div>
                         )}
                         <button>Add Question</button>
                     </div>
-
-                    <div>
-                        <div>Stats</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {warmups[warmup].students.map((s) =>
-                                    <tr>
-                                        <td>{s.name}</td>
-                                        <td>{s.score}</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-            </section>
+
+                <div className="stats-box">
+                    <div id="stats-title">Stats</div>
+                    <table className="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {warmups[warmup].students.map((s, i) =>
+                                <tr key={i}>
+                                    <td>{s.name}</td>
+                                    <td>{s.score}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </>
     )
 
