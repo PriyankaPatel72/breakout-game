@@ -1,10 +1,39 @@
 .navbar {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0rem;
+    background-color: #111; 
+    padding: 0.5rem 2rem;
     height: 64px;
+    box-shadow: 0 0 15px #08e9f9;
+    font-family: Impact;
+}
+
+/* Logo styling */
+.logo img {
+    height: 70px;
+    cursor: pointer;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.2s ease-in-out;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.nav-link:hover {
+    background-color: #1f3aaf;
+    box-shadow: 0 0 10px #08e9f9;
+    color: white;
 }
 
 /*Landing CSS*/
@@ -175,13 +204,6 @@
 
 .stats-table th {
     background-color: #222;
-}.navbar {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0rem;
-    height: 64px;
 }
 
 /*Landing CSS*/
@@ -359,23 +381,6 @@
     justify-content: space-between;
     gap: 10px;
 }
-
-/* .questions-box {
-    flex-grow: 1;
-    padding-right: 10px;
-    overflow: scroll;
-    height: 400px;
-}
-
-.questions-box::-webkit-scrollbar {
-    width: 8px;
-}
-
-.questions-box::-webkit-scrollbar-thumb {
-    background-color: #08e9f9;
-    border-radius: 10px;
-} */
-
 
 #controls {
     display: flex;
