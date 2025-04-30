@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from bson import ObjectId
-from models import SignupRequest, LoginRequest, AdminCreateRequest
+#from bson import ObjectId
+from models import SignupRequest, LoginRequest, AdminCreateRequest, WarmupCreateRequest, QuestionCreateRequest
 from db import db
 from auth import get_pw_hash, get_user, format_admin, format_student
 
@@ -71,15 +71,40 @@ async def create_admin(admin_req: AdminCreateRequest, caller: str):
     await db.users.insert_one(user_document)
     return {"message" : "hooray(admin)"}
 
-#add a new warmup quiz
+#add a new warmup quiz chappon
 @app.post('/admin/warmups')
-def create_warmup():
-    return None
+async def create_warmup(warmup: WarmupCreateRequest, caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+
+    warmup_doc = {
+        "id": warmup.id,
+        "questions": [],
+        "unlocked": warmup.isUnlocked
+    }
+
+    result = await db.warmups.insert_one(warmup_doc)
+    return {"id": str(result.inserted_id), "message": "Warmup created"}
 
 #add a question to a warmup 
 @app.post('/admin/warmups/{id}/questions')
-def add_question():
-    return None
+async def add_question(id: int, question_req: QuestionCreateRequest, caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+
+    if question_req.answer not in question_req.options:
+        raise HTTPException()
+
+    result = await db.warmups.update_one(
+        {"id": id},
+        {"$push": {"questions": question_req.model_dump()}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException()
+    return {"message": "Question added successfully"}
 
 #unlock a warmup 
 @app.post('/admin/warmups/{id}/unlock')
@@ -91,7 +116,7 @@ def unlock_warmup():
 def view_unlocked_warmups():
     return None
 
-#get a specific warmup 
+#get a specific warmup chappon
 @app.get('/warmups/{id}')
 def get_warmup():
     return None
