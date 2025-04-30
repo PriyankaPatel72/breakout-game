@@ -13,9 +13,9 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
         <>
         <div className="navbar">
-        <a href="/">
-            <img src={image} alt="Home"/>
-        </a>
+            <a href="/">
+                <img src={image} alt="Home"/>
+            </a>
             <Menu {...props} />
         </div>
         <div className="main-screen">

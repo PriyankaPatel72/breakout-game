@@ -65,9 +65,9 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
     return (
         <>
             <div className="navbar">
-            <a href="/">
-            <img src={image} alt="Home"/>
-        </a>
+                <a id="web-logo" href="/">
+                    <img src={image} alt="Home"/>
+                </a>
                 <Menu {...props} />
             </div>
 
