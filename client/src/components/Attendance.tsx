@@ -5,9 +5,17 @@ import Header from './Header';
 import image from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
-const AttendanceDB = [
+type AttendanceRecord = {
+    [week: number]: boolean;
+};
+  
+type Student = {
+    name: string;
+    attendance: AttendanceRecord;
+};
+const AttendanceDB: Student[] = [
     {
-        name: "aob",
+        name: "bob",
         attendance: {
             1: true,
             2: false,
@@ -22,7 +30,7 @@ const AttendanceDB = [
         }
     },
     {
-        name: "bob",
+        name: "aob",
         attendance: {
             1: true,
             2: false,
@@ -58,26 +66,33 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
             <Header admin={props.admin}></Header>
 
             <div className="main-screen">
-                <h1>Attendance</h1>
-                <div>
-                    <table>
+                <div className="attendance-container">
+                    <h1 className="attendance-title">Attendance</h1>
+                    <table className="attendance-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 {weekNumbers.map(week => (
-                                    <th>Week {week}</th>
+                                    <th key={week}>Week {week}</th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
-                            {AttendanceDB.map(student => (
-                            <tr>
+                            {AttendanceDB
+                            .slice()
+                            .sort((a, b) => a.name.localeCompare(b.name))
+                            .map((student, idx) => (
+                            <tr key={idx}>
                                 <td>{student.name}</td>
-                                {weekNumbers.map(week => {
+                                {weekNumbers.map((week, wIdx) => {
                                 const attended = student.attendance[week];
                                     return (
-                                        <td>
-                                            {attended ? '✅' : '❌'}
+                                        <td key={wIdx}>
+                                            {attended ? (
+                                                <span className="attendance-check">✅</span>
+                                            ) : (
+                                                <span className="attendance-cross">❌</span>
+                                            )}
                                         </td>
                                     );
                                 })}
