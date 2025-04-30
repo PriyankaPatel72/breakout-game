@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import React from 'react';
 import '../App.css'
-import Menu from './Menu.tsx'
+import Header from './Header.tsx';
 import { JSX } from 'react/jsx-runtime';
 import AccountMenu from './AccountMenu.tsx';
 import games from './games.tsx';
@@ -12,12 +12,7 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
     return (
 
         <>
-            <div className="navbar">
-                    <div id="web-logo" onClick={() => navigate("/")}>
-                        <img src={image} alt="Home"/>
-                    </div>
-                    <Menu {...props} />
-                </div>
+            <Header admin={props.admin}></Header>
 
             <div className="main-screen">
                 <div id="game-list">
