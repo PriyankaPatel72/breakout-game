@@ -14,7 +14,6 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
         <>
         <div className="navbar">
             <Menu {...props} />
-            <AccountMenu />
         </div>
         <div className="main-screen">
             <div id="game-list">
