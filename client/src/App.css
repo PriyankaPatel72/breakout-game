@@ -356,6 +356,9 @@
     height: 700px;
     font-weight: bold;
     font-family: Impact;
+}
+
+.stats-container{
     overflow: scroll;
 }
 

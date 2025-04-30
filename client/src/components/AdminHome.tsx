@@ -115,22 +115,22 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
                 <div className="stats-box">
                     <div id="stats-title">Stats</div>
-                    <table className="stats-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {warmups[warmup].students.map((s, i) =>
-                                <tr key={i}>
-                                    <td>{s.name}</td>
-                                    <td>{s.score}</td>
+                        <table className="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Score</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {warmups[warmup].students.map((s, i) =>
+                                    <tr key={i}>
+                                        <td>{s.name}</td>
+                                        <td>{s.score}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                 </div>
             </div>
 
