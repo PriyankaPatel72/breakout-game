@@ -106,6 +106,7 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
             <Footer></Footer>
         </>
+       
     )
 
 }

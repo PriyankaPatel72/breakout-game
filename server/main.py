@@ -71,7 +71,7 @@ async def create_admin(admin_req: AdminCreateRequest, caller: str):
     await db.users.insert_one(user_document)
     return {"message" : "hooray(admin)"}
 
-#add a new warmup quiz chappon
+#add a new warmup quiz 
 @app.post('/admin/warmups')
 async def create_warmup(warmup: WarmupCreateRequest, caller: str):
     caller_admin = await db.users.find_one({"username": caller})
@@ -108,18 +108,36 @@ async def add_question(id: int, question_req: QuestionCreateRequest, caller: str
 
 #unlock a warmup 
 @app.post('/admin/warmups/{id}/unlock')
-def unlock_warmup():
-    return None
+async def unlock_warmup(id: int, caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+    result = await db.warmups.update_one(
+        {"id": id},
+        {"$set": {"unlocked": True}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException()
+    return {"message": "Warmup unlocked"}
 
 #access unlocked warmups
 @app.get('/warmups')
-def view_unlocked_warmups():
-    return None
+async def view_unlocked_warmups():
+    warmups = await db.warmups.find({"unlocked": True}).to_list(length=100)
+    return [{"id": w["id"], "questions": w["questions"]} for w in warmups]
 
-#get a specific warmup chappon
+#get a specific warmup 
 @app.get('/warmups/{id}')
-def get_warmup():
-    return None
+async def get_warmup(id: int):
+    warmup = await db.warmups.find_one({"id": id, "unlocked": True})
+    
+    if not warmup:
+        raise HTTPException()
+
+    return {
+        "id": warmup["id"],
+        "questions": warmup["questions"]
+    }
 
 #update attendance after warmup completed
 @app.patch('/users/{username}/attendance')
