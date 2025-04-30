@@ -5,11 +5,13 @@ import logo from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
 function Header(props: JSX.IntrinsicAttributes & { admin: any; }) {
+
+    const navigate = useNavigate();
  
     return (
         <>
             <nav className="navbar">
-                <div className="logo">
+                <div className="logo" onClick={() => navigate("/")}>
                     <img src={logo} alt="Home"/>
                 </div>
                 <div className="nav-buttons">
