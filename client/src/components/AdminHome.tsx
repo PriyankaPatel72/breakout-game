@@ -69,7 +69,6 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
             <img src={image} alt="Home"/>
         </a>
                 <Menu {...props} />
-
             </div>
 
             <div className="main-screen">
