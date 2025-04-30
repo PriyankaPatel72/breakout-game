@@ -7,51 +7,49 @@ import image from '../assets/adc.png'
 
 import { JSX } from 'react/jsx-runtime';
 
-const warmups = [
-    {
-        id: 0,
-        unlocked: false,
-        questions: [
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-        ],
-        students: [
-            {name: "abc", score: 123}
-        ]
-    },
-    {
-        id: 1,
-        unlocked: false,
-        questions: [
-            ["question1b", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question2", "answer 1", "answer 2", "answer 3", "answer 4"]
-        ],
-        students: [
-            {name: "abc", score: 123}
-        ]
-    },
-    {
-        id: 2,
-        unlocked: false,
-        questions: [
-            ["question1c", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question2", "answer 1", "answer 2", "answer 3", "answer 4"]
-        ],
-        students: [
-            {name: "abc", score: 123}
-        ]
-    }
-]
+const totalWarmups = 3
+const warmup = {
+    id: 1,
+    questions: [
+        {
+            id: 1,
+            question: "What color is grass?",
+            options: [
+                "Green", "Pink", "Blue", "Industrial Gray"
+            ],
+            answer: "Green"
+        },
+        {
+            id: 2,
+            question: "What color is the Sun?",
+            options: [
+                "Yellow", "Green", "Blue", "let me go stare at it rq"
+            ],
+            answer: "Yellow"
+        }
+    ],
+    unlocked: false
+}
 
+/**
+ * `AdminHome` is a functional component that renders the admin home page.
+ * It allows admins to view and manage warmups, including locking/unlocking them and viewing student stats.
+ *
+ * @param {object} props - The component's props.
+ * @param {any} props.admin - The admin user object. If null, the user is redirected to the home page.
+ *
+ * @returns {JSX.Element} The rendered AdminHome component.
+ *
+ * @example
+ * ```tsx
+ * <AdminHome admin={adminUser} />
+ * ```
+ */
 function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     const navigate = useNavigate();
-    const [warmup, setWarmup] = useState(0)
-    const [lockStatus, setLockStatus] = useState(warmups[warmup].unlocked)
+    const [week, setWeek] = useState(1);
+    const [lockStatus, setLockStatus] = useState(warmup.unlocked)
 
     useEffect(() => {
         if (!props.admin) {
@@ -60,10 +58,16 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
     }, [props.admin, navigate])
 
     // NOTE
+    // Temporary implementation until backend is hooked up
+    useEffect(() => {
+        return
+    }, [week])
+
+    // NOTE
     // This function implementation is temporary
     // Will be changed to make POST calls to the backend once able to
     function toggleLock() {
-        warmups[warmup].unlocked = !warmups[warmup].unlocked
+        warmup.unlocked = !warmup.unlocked
         setLockStatus(!lockStatus)
     }
 
@@ -78,40 +82,36 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                     <div id="controls">
                         <select
                             id="warmup-select"
-                            value={warmup}
-                            onChange={(e: ChangeEvent<HTMLSelectElement>) => setWarmup(Number(e.target.value))}
+                            // value={warmup}
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => setWeek(Number(e.target.value))}
                         >
-                            {warmups.map((w) => (
-                                <option key={w.id} value={w.id}>
-                                    Warmup #{w.id + 1}
+                            {Array.from({length: totalWarmups}, (_, index) => index + 1).map((value) => (
+                                <option>
+                                    Week {value}
                                 </option>
                             ))}
                         </select>
 
                         <button className="lock-button" onClick={toggleLock}>
-                            {warmups[warmup].unlocked ? "Lock" : "Unlock"}
+                            {warmup.unlocked ? "Lock" : "Unlock"}
                         </button>
                     </div>
 
-                    {/* {warmups[warmup].unlocked ?  
-                        <button onClick={toggleLock}>Lock</button>
-                        :
-                        <button onClick={toggleLock}>Unlock</button>
-                    } */}
-
                     <div id="question-scroller">
                         <div id="question-bank-title">Question Bank</div>
-                        {warmups[warmup].questions.map((q, i) =>
-                            <div key={i} className="question-block">
-                                <h3>{q[0]}</h3>
-                                {q.slice(1).map((answer, j) =>
-                                    <h4 key={j}>{answer}</h4>
-                                )}
+                        {warmup.questions.map((obj) => (
+                            <div key={obj.id} className="question-block">
+                                <h3>{obj.question}</h3>
+                                {obj.options.map((a) => (
+                                    <h4>- {a}</h4>
+                                ))}
+                                <h4>Answer: {obj.answer}</h4>
                             </div>
-                        )}
+                        ))}
                     </div>
                     <button>Add Question</button>
                 </div>
+
 
                 <div className="stats-box">
                     <div id="stats-title">Stats</div>
@@ -124,16 +124,18 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {warmups[warmup].students.map((s, i) =>
-                                    <tr key={i}>
-                                        <td>{s.name}</td>
-                                        <td>{s.score}</td>
-                                    </tr>
-                                )}
-                            </tbody>
+                            {/* {warmups[warmup].students.map((s, i) =>
+                                <tr key={i}>
+                                    <td>{s.name}</td>
+                                    <td>{s.score}</td>
+                                </tr>
+                            )} */}
+                            <div>Temp broken :(</div>
+                        </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
 
             <Footer></Footer>
