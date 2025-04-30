@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../App.css'
 import Header from './Header';
+import Footer from './Footer';
 import image from '../assets/adc.png'
 
 import { JSX } from 'react/jsx-runtime';
@@ -12,7 +13,11 @@ const warmups = [
         unlocked: false,
         questions: [
             ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question2", "answer 1", "answer 2", "answer 3", "answer 4"]
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
         ],
         students: [
             {name: "abc", score: 123}
@@ -94,7 +99,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                         <button onClick={toggleLock}>Unlock</button>
                     } */}
 
-                    <div>
+                    <div id="question-scroller">
                         <div id="question-bank-title">Question Bank</div>
                         {warmups[warmup].questions.map((q, i) =>
                             <div key={i} className="question-block">
@@ -104,30 +109,34 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 )}
                             </div>
                         )}
-                        <button>Add Question</button>
                     </div>
+                    <button>Add Question</button>
                 </div>
 
                 <div className="stats-box">
                     <div id="stats-title">Stats</div>
-                    <table className="stats-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {warmups[warmup].students.map((s, i) =>
-                                <tr key={i}>
-                                    <td>{s.name}</td>
-                                    <td>{s.score}</td>
+                    <div className="stats-container">
+                        <table className="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Score</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {warmups[warmup].students.map((s, i) =>
+                                    <tr key={i}>
+                                        <td>{s.name}</td>
+                                        <td>{s.score}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+
+            <Footer></Footer>
         </>
     )
 

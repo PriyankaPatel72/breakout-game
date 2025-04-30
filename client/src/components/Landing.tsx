@@ -6,6 +6,8 @@ import { JSX } from 'react/jsx-runtime';
 import AccountMenu from './AccountMenu.tsx';
 import games from './games.tsx';
 import image from '../assets/adc.png'
+import Leaderboard from './Leaderboard.tsx';
+import Footer from './Footer.tsx';
 
 function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
@@ -27,9 +29,13 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 </div>
                 <div id="leaderboard">
                     <h1 id="leaderboard-title"> Leaderboard</h1>
+                    
+                    <div id="leaderboard-container">
+                    </div>
                 </div>
             </div>
         
+            <Footer></Footer>
         </>
     )
 
