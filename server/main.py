@@ -140,7 +140,7 @@ async def get_warmup(id: int):
     }
 
 #if user needs to see their stats
-@app.get('/users/{username}/stats') #me
+@app.get('/users/{username}/warmups/{id}/stats') #me
 def get_stats():
     return None
 
@@ -156,9 +156,25 @@ def get_attendance():
 
 #SCORE HANDLING
 #everyone sees scores on leaderboard
-# @app.get('/leaderboard')
-# def get_leaderboard():
-#     users = 
+@app.get('/leaderboard')
+async def get_leaderboard():
+    users = await db.users.find({"isAdmin" : False}).to_list(length=None)
+
+    leaderboard = sorted(
+        [
+            {
+                "username": user['username'],
+                "displayName": user['displayName'],
+                "avatarUrl": user["avatarUrl"],
+                "score": user.get("score", 0)
+            }
+            for user in users
+        ], 
+        key=lambda u: u['score'],
+        reverse=True
+    )
+    return leaderboard
+
 
 #HANDLING WARMUP QUIZ LOGIC:
 #user submits warmup quiz - handle attendance + stats
