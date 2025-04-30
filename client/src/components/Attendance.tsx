@@ -66,14 +66,14 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
             <Header admin={props.admin}></Header>
 
             <div className="main-screen">
-                <h1>Attendance</h1>
-                <div>
-                    <table>
+                <div className="attendance-container">
+                    <h1 className="attendance-title">Attendance</h1>
+                    <table className="attendance-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 {weekNumbers.map(week => (
-                                    <th>Week {week}</th>
+                                    <th key={week}>Week {week}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -81,14 +81,18 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             {AttendanceDB
                             .slice()
                             .sort((a, b) => a.name.localeCompare(b.name))
-                            .map(student => (
-                            <tr>
+                            .map((student, idx) => (
+                            <tr key={idx}>
                                 <td>{student.name}</td>
-                                {weekNumbers.map(week => {
+                                {weekNumbers.map((week, wIdx) => {
                                 const attended = student.attendance[week];
                                     return (
-                                        <td>
-                                            {attended ? '✅' : '❌'}
+                                        <td key={wIdx}>
+                                            {attended ? (
+                                                <span className="attendance-check">✅</span>
+                                            ) : (
+                                                <span className="attendance-cross">❌</span>
+                                            )}
                                         </td>
                                     );
                                 })}
