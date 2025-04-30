@@ -115,6 +115,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
                 <div className="stats-box">
                     <div id="stats-title">Stats</div>
+                    <div className="stats-container">
                         <table className="stats-table">
                             <thead>
                                 <tr>
@@ -131,6 +132,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 )}
                             </tbody>
                         </table>
+                    </div>
                 </div>
             </div>
 
