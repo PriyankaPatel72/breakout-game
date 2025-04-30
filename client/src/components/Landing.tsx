@@ -5,7 +5,7 @@ import Menu from './Menu.tsx'
 import { JSX } from 'react/jsx-runtime';
 import AccountMenu from './AccountMenu.tsx';
 import games from './games.tsx';
-
+import image from '../assets/adc.png'
 
 function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
@@ -13,6 +13,9 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
         <>
         <div className="navbar">
+        <a href="/">
+            <img src={image} alt="Home"/>
+        </a>
             <Menu {...props} />
         </div>
         <div className="main-screen">
