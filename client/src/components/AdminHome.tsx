@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../App.css'
 import Header from './Header';
+import Footer from './Footer';
 import image from '../assets/adc.png'
 
 import { JSX } from 'react/jsx-runtime';
@@ -126,8 +127,32 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                     <button>Add Question</button>
                 </div>
 
-                
+
+                <div className="stats-box">
+                    <div id="stats-title">Stats</div>
+                    <div className="stats-container">
+                        <table className="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {warmups[warmup].students.map((s, i) =>
+                                    <tr key={i}>
+                                        <td>{s.name}</td>
+                                        <td>{s.score}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
+
+            <Footer></Footer>
         </>
     )
 

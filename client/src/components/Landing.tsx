@@ -29,10 +29,13 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 </div>
                 <div id="leaderboard">
                     <h1 id="leaderboard-title"> Leaderboard</h1>
+                    
+                    <div id="leaderboard-container">
+                    </div>
                 </div>
             </div>
         
-            <Footer/>
+            <Footer></Footer>
         </>
     )
 
