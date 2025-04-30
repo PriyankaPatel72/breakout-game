@@ -72,13 +72,17 @@
     overflow: scroll;
 }
 
-#leaderboard-title{
+#leaderboard-title {
     font-size: 2.5rem;
     font-weight: bold;
     border-bottom: 3px solid white;
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
     font-family: Impact
+}
+
+#leaderboard-container {
+    overflow: scroll;
 }
 
 #game-list {
