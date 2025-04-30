@@ -65,7 +65,6 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
         <>
             <div className="navbar">
                 <Menu {...props} />
-
             </div>
 
             <div className="main-screen">

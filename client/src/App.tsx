@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import Landing from "./components/Landing.tsx"
 import AdminHome from "./components/AdminHome.tsx"
+import Attendance from './components/Attendance.tsx'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<Landing admin={true} />} />
             <Route path="/login" element={<Landing admin={true} />} />
             <Route path="/admin" element={<AdminHome admin={true} />} />
+            <Route path="/attendance" element={<Attendance admin={true} />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Router>
