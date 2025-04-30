@@ -5,9 +5,17 @@ import Header from './Header';
 import image from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
-const AttendanceDB = [
+type AttendanceRecord = {
+    [week: number]: boolean;
+};
+  
+type Student = {
+    name: string;
+    attendance: AttendanceRecord;
+};
+const AttendanceDB: Student[] = [
     {
-        name: "aob",
+        name: "bob",
         attendance: {
             1: true,
             2: false,
@@ -22,7 +30,7 @@ const AttendanceDB = [
         }
     },
     {
-        name: "bob",
+        name: "aob",
         attendance: {
             1: true,
             2: false,
@@ -70,7 +78,10 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {AttendanceDB.map(student => (
+                            {AttendanceDB
+                            .slice()
+                            .sort((a, b) => a.name.localeCompare(b.name))
+                            .map(student => (
                             <tr>
                                 <td>{student.name}</td>
                                 {weekNumbers.map(week => {
