@@ -5,7 +5,7 @@ import logo from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
 function Header(props: JSX.IntrinsicAttributes & { admin: any; }) {
-
+ 
     return (
         <>
             <nav className="navbar">
