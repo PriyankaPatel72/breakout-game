@@ -2,6 +2,7 @@ import { useState, useEffect, ChangeEvent } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../App.css'
 import Menu from './Menu.tsx'
+import image from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
 const AttendanceDB = [
