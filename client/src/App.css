@@ -9,6 +9,17 @@
     font-family: Impact;
 }
 
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111; 
+    padding: 0.5rem 2rem;
+    height: 70px;
+    box-shadow: 0 0 15px #08e9f9;
+    font-family: Impact;
+}
+
 /* Logo styling */
 .logo img {
     height: 70px;
