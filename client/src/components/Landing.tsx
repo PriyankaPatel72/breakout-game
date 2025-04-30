@@ -32,7 +32,7 @@ function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 </div>
             </div>
         
-            <Footer/>
+            <Footer></Footer>
         </>
     )
 
