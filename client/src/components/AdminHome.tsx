@@ -46,6 +46,20 @@ const warmups = [
     }
 ]
 
+/**
+ * `AdminHome` is a functional component that renders the admin home page.
+ * It allows admins to view and manage warmups, including locking/unlocking them and viewing student stats.
+ *
+ * @param {object} props - The component's props.
+ * @param {any} props.admin - The admin user object. If null, the user is redirected to the home page.
+ *
+ * @returns {JSX.Element} The rendered AdminHome component.
+ *
+ * @example
+ * ```tsx
+ * <AdminHome admin={adminUser} />
+ * ```
+ */
 function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     const navigate = useNavigate();
@@ -112,25 +126,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                     <button>Add Question</button>
                 </div>
 
-                <div className="stats-box">
-                    <div id="stats-title">Stats</div>
-                    <table className="stats-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {warmups[warmup].students.map((s, i) =>
-                                <tr key={i}>
-                                    <td>{s.name}</td>
-                                    <td>{s.score}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                
             </div>
         </>
     )
