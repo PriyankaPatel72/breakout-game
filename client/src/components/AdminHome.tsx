@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import '../App.css'
-import Menu from './Menu.tsx'
+import Header from './Header';
 import image from '../assets/adc.png'
 
 import { JSX } from 'react/jsx-runtime';
@@ -12,7 +12,11 @@ const warmups = [
         unlocked: false,
         questions: [
             ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
-            ["question2", "answer 1", "answer 2", "answer 3", "answer 4"]
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
+            ["question1a", "answer 1", "answer 2", "answer 3", "answer 4"],
         ],
         students: [
             {name: "abc", score: 123}
@@ -64,13 +68,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     return (
         <>
-            <div className="navbar">
-            <a href="/">
-            <img src={image} alt="Home"/>
-        </a>
-                <Menu {...props} />
-
-            </div>
+            <Header admin={props.admin}></Header>
 
             <div className="main-screen">
                 <div className="warmup-box">
@@ -100,7 +98,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                         <button onClick={toggleLock}>Unlock</button>
                     } */}
 
-                    <div>
+                    <div id="question-scroller">
                         <div id="question-bank-title">Question Bank</div>
                         {warmups[warmup].questions.map((q, i) =>
                             <div key={i} className="question-block">
@@ -110,8 +108,8 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 )}
                             </div>
                         )}
-                        <button>Add Question</button>
                     </div>
+                    <button>Add Question</button>
                 </div>
 
                 <div className="stats-box">
