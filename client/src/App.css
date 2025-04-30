@@ -98,6 +98,8 @@
     padding: 8px 12px;
     border-radius: 100px;
     border-color: white;
+    font-family: Impact;
+    font-size: bold;
 }
 
 .warmup-box button:hover {
@@ -170,4 +172,10 @@
 
 .stats-table th {
     background-color: #222;
+}
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }

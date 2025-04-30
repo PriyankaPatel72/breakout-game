@@ -72,7 +72,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 <div className="warmup-box">
 
                     {/* Title and Warmup selector */}
-                    <div>
+                    <div id="controls">
                         <select
                             id="warmup-select"
                             value={warmup}
@@ -84,13 +84,17 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 </option>
                             ))}
                         </select>
+
+                        <button className="lock-button" onClick={toggleLock}>
+                            {warmups[warmup].unlocked ? "Lock" : "Unlock"}
+                        </button>
                     </div>
 
-                    {warmups[warmup].unlocked ?  
+                    {/* {warmups[warmup].unlocked ?  
                         <button onClick={toggleLock}>Lock</button>
                         :
                         <button onClick={toggleLock}>Unlock</button>
-                    }
+                    } */}
 
                     <div>
                         <div id="question-bank-title">Question Bank</div>
