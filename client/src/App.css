@@ -138,6 +138,10 @@
     box-shadow: 0 0 20px #08e9f9;
 }
 
+#question-scroller {
+    overflow: scroll;
+}
+
 .question-block {
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
