@@ -37,3 +37,13 @@ class AdminResponse(BaseModel):
     avatarUrl: str
     isAdmin: bool
     students: List[StudentResponse]
+    
+class WarmupCreateRequest(BaseModel):
+    title: str
+    isUnlocked: bool = False
+
+class QuestionCreateRequest(BaseModel):
+    question: str
+    options: List[str] = Field(min_items=4, max_items=4)
+    answer: str
+    
