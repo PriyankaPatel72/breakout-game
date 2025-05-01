@@ -9,7 +9,6 @@ function Landing({ admin }) {
     return (
         <div className="app-container">
             <Header admin={admin} />
-
             <main className="main-screen">
                 <div className="container landing-content-wrapper">
                     <section className="landing-left-column">

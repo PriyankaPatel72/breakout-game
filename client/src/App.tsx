@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Landing from './components/Landing.tsx';
 import AdminHome from './components/AdminHome.tsx';
 import Loginpage from './components/Loginpage.tsx';
-import Attendance from './components/Attendance.tsx';
+import Attendance from './components/Attendance.tsx'
+import Play from './components/Play.tsx';
 import Newuser from './components/Newuser.tsx';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/admin" element={<AdminHome admin={true} />} />
             <Route path="/attendance" element={<Attendance admin={true} />} />
             <Route path="/loginPage" element={<Loginpage />} />
+            <Route path="/play" element={<Play admin={true} week={1} />} />
             <Route path="/newUser" element={<Newuser />} />
             <Route path="*" element={<Navigate to="/loginPage" />} />
           </Routes>
