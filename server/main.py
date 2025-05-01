@@ -131,6 +131,8 @@ async def get_warmup(id: int):
         "questions": warmup["questions"]
     }
 
+
+
 #access unlocked warmups
 @app.get('/warmups')
 async def view_unlocked_warmups():
@@ -192,6 +194,7 @@ async def get_all_stats(caller: str):
 
 #ATTENDANCE HANDLING
 #admin needs to see students' attendance 
+@app.get('/admin/attendance')
 async def get_attendance(caller: str):
     caller_admin = await db.users.find_one({"username": caller})
     if not caller_admin or not caller_admin.get("isAdmin"):

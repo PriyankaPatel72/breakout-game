@@ -25,7 +25,6 @@ def format_student(user: dict):
     return StudentResponse(
         username=user['username'],
         displayName=user['displayName'],
-        avatarUrl=user['avatarUrl'],
         isAdmin=False,
         score=user.get("score", 0),
         stats=user.get("stats", {}),
@@ -38,7 +37,6 @@ async def format_admin(user: dict):
     return AdminResponse(
         username=user['username'],
         displayName=user['displayName'],
-        avatarUrl=user['avatarUrl'],
         isAdmin=True,
         students=students
     )

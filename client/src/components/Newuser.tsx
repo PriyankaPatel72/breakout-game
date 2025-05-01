@@ -7,19 +7,37 @@ import './Loginpage.css';
 import Header from './Header.tsx';
 import Footer from './Footer.tsx';
 
+const API_URL = "http://0.0.0.0:8000"
+
 export default function Newuser() {
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Creating new account:');
-        console.log('Username:', username);
-        console.log('Display Name:', displayName);
-        console.log('Password:', password);
-        // Add registration logic here
+        try {
+            const response = await fetch(`${API_URL}/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    displayName,
+                    password,
+                }),
+            })
+            const data = await response.json();
+            const {user, isAdmin, dispName} = data;
+            localStorage.setItem("user", JSON.stringify({user, isAdmin, dispName}))
+
+            window.location.href = "/"
+
+        } catch (error: any) {
+            alert(`Login failed: ${error.message}`);
+        }
     };
 
     return (
