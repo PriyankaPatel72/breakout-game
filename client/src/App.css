@@ -12,18 +12,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #111; 
-    padding: 0.25rem 1rem;
-    height: 50px;
+    background-color: #111;
     box-shadow: 0 0 10px #08e9f9;
-    padding: 0.5rem 2rem;
     height: 70px;
     font-family: Impact;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    z-index: 100;
 }
 
 .footer-content {
@@ -646,4 +639,66 @@
     height: auto;
     max-height: none;
     overflow: visible;
+}
+
+/*Play css*/
+.quiz-question {
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ffffff30;
+}
+
+.quiz-question h3 {
+    font-size: 1.6rem;
+    color: white;
+    margin-bottom: 1rem;
+    font-family: Impact;
+}
+
+/* Answer buttons */
+.quiz-option {
+    margin: 0.3rem;
+    padding: 10px 16px;
+    background-color: #111;
+    color: white;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    font-family: Impact;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quiz-option:hover {
+    background-color: #1f3aaf;
+    box-shadow: 0 0 10px #08e9f9;
+}
+
+/* When selected */
+.quiz-option.selected {
+    background-color: #2776f6;
+    color: black;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px #08e9f9;
+}
+
+/* Submit button */
+.quiz-submit {
+    margin-top: 1rem;
+    padding: 12px 24px;
+    background-color: #111;
+    color: white;
+    border-radius: 20px;
+    font-family: Impact;
+    border: 2px solid white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s ease-in-out;
+}
+
+.quiz-submit:hover {
+    background-color: #1f3aaf;
+    box-shadow: 0 0 15px #08e9f9;
 }

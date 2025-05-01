@@ -58,18 +58,19 @@ function Play(props: JSX.IntrinsicAttributes & { admin: any; } & { week: any }) 
             <div className="main-screen">
                 <div>
                     {warmup.questions.map((q) => 
-                        <div key={q.id}>
+                        <div className="quiz-question" key={q.id}>
                             <h3>{q.question}</h3>
                             {q.options.map((opt) => (
                                 <button
-                                onClick={() => handleSelect(q.id, opt)}
-                                className={answers[q.id] === opt ? "selected" : ""}>
+                                    key={opt}
+                                    onClick={() => handleSelect(q.id, opt)}
+                                    className={`quiz-option ${answers[q.id] === opt ? "selected" : ""}`}>
                                     {opt}
                                 </button>
                             ))}
                         </div>
                     )}
-                    <button>Submit</button>
+                    <button className="quiz-submit">Submit</button>
                 </div>
             </div>
 
