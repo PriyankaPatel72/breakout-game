@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './leaderboard.css';
 
 const students = [
     { id: 1, name: 'Alice', score: 95 },
@@ -11,26 +11,34 @@ const students = [
 
 export default function Leaderboard() {
     return (
-        <div className="">
-            <h1 className="">Leaderboard</h1>
-            <table className="">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {students.map((student, index) => (
-                        <tr key={student.id}>
-                            <td>{index + 1}</td>
-                            <td>{student.name}</td>
-                            <td>{student.score}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="leaderboard-wrapper">
+            <div className="leaderboard-container">
+                <div className="leaderboard-header">
+                    <h2>Leaderboard</h2>
+                </div>
+                <div className="leaderboard-body">
+                    <table className="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {students
+                                .sort((a, b) => b.score - a.score) // Sort by score in descending order
+                                .map((student, index) => (
+                                    <tr key={student.id} className={`rank-${index + 1}`}>
+                                        <td className="rank-cell">{index + 1}</td>
+                                        <td className="name-cell">{student.name}</td>
+                                        <td className="score-cell">{student.score}</td>
+                                    </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
