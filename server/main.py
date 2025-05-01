@@ -151,8 +151,16 @@ def get_all_stats():
 
 #ATTENDANCE HANDLING
 #admin needs to see students' attendance 
-def get_attendance():
-    return None
+async def get_attendance(caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+    
+    users = await db.users.find({}, {"_id": 0, "username": 1, "attendance": 1}).to_list(length=100)
+
+    return users
+
+ 
 
 #SCORE HANDLING
 #everyone sees scores on leaderboard
