@@ -27,7 +27,7 @@ export default function Leaderboard() {
                         </thead>
                         <tbody>
                             {students
-                                .sort((a, b) => b.score - a.score) // Sort by score in descending order
+                                .sort((a, b) => b.score - a.score) 
                                 .map((student, index) => (
                                     <tr key={student.id} className={`rank-${index + 1}`}>
                                         <td className="rank-cell">{index + 1}</td>
@@ -42,3 +42,4 @@ export default function Leaderboard() {
         </div>
     );
 }
+

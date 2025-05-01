@@ -1,0 +1,252 @@
+.leaderboard-wrapper {
+    width: 100%;
+    max-width: 100%; /* Fill the container */
+    height: 100%; /* Take full height */
+    animation: fadeInUp 0.5s ease;
+    margin: 0; /* Remove margin to maximize space */
+}
+
+.leaderboard-container {
+    background: linear-gradient(to bottom, rgba(32, 163, 189, 0.86), rgb(79, 13, 185));
+    border-radius: 20px;
+    box-shadow: 0 0 20px white;
+    overflow: hidden;
+    width: 100%;
+    height: 100%; /* Take full height */
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-header {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 10px #08e9f9;
+    font-family: Impact, sans-serif;
+}
+
+.leaderboard-header h2 {
+    margin: 0;
+    font-size: 2.5rem; /* Increased size */
+    color: #08e9f9;
+    text-shadow: 0 0 8px rgba(8, 233, 249, 0.6);
+}
+
+.leaderboard-body {
+    padding: 20px;
+    color: white;
+    font-family: Impact, sans-serif;
+    flex: 1; /* Allow body to expand */
+    overflow: visible !important; /* Remove any scrolling inside leaderboard */
+    max-height: none !important;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2rem; /* Increased text size */
+    }
+
+.leaderboard-table thead tr {
+    border-bottom: 2px solid #08e9f9;
+}
+
+.leaderboard-table th {
+    padding: 15px; /* Increased padding */
+    font-size: 1.3rem; /* Larger header text */
+    color: #08e9f9;
+    letter-spacing: 1px;
+}
+
+.leaderboard-table td {
+    padding: 15px; /* Increased padding */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-table tbody tr {
+    transition: all 0.3s;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: rgba(8, 233, 249, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(8, 233, 249, 0.2);
+}
+
+.rank-1 {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.rank-1 .rank-cell {
+    color: gold;
+    text-shadow: 0 0 5px gold;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.rank-2 {
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+.rank-2 .rank-cell {
+    color: silver;
+    text-shadow: 0 0 5px silver;
+    font-weight: bold;
+}
+
+.rank-3 {
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+.rank-3 .rank-cell {
+    color: #cd7f32;
+    text-shadow: 0 0 5px #cd7f32;
+    font-weight: bold;
+}
+
+.score-cell {
+    font-weight: bold;
+    color: #08e9f9;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Update in your App.css */
+#leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+}
+
+#leaderboard-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Add to your App.css file */
+.landing-content-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+    padding: 20px;
+}
+
+.landing-left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0; /* Allows flex items to shrink below content size */
+}
+
+.landing-right-column {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.individual-game {
+    background-color: rgb(12, 12, 12);
+    border-radius: 20px;
+    box-shadow: 0 0 20px white;
+    padding: 20px;
+    color: white;
+    font-family: Impact, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.individual-game:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px #08e9f9;
+}
+
+.individual-game h3 {
+    color: #08e9f9;
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.individual-game p {
+    margin: 10px 0;
+}
+
+.individual-game button {
+    background-color: #111;
+    color: white;
+    border: 1px solid #08e9f9;
+    border-radius: 30px;
+    padding: 8px 25px;
+    font-family: Impact, sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.individual-game button:hover {
+    background-color: rgba(8, 233, 249, 0.2);
+    box-shadow: 0 0 15px #08e9f9;
+}
+
+#game-title {
+    color: #08e9f9;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #08e9f9;
+    font-family: Impact, sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .landing-content-wrapper {
+        flex-direction: column;
+    }
+    
+    .landing-left-column,
+    .landing-right-column {
+        width: 100%;
+    }
+    
+    .individual-game {
+        margin: 10px 0;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .leaderboard-container {
+        margin: 10px;
+    }
+    
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .leaderboard-header h2 {
+        font-size: 1.5rem;
+    }
+}
