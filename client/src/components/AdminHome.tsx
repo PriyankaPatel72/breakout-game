@@ -4,12 +4,13 @@ import '../App.css'
 import Header from './Header';
 import Footer from './Footer';
 import image from '../assets/adc.png'
-
 import { JSX } from 'react/jsx-runtime';
 
+const API_URL = "http://127.0.0.1:8000"
+
 const totalWarmups = 3
-const warmup = {
-    id: 1,
+const warmupMock = {
+    id: 0,
     questions: [
         {
             id: 1,
@@ -49,6 +50,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     const navigate = useNavigate();
     const [week, setWeek] = useState(1);
+    const [warmup, setWarmup] = useState(warmupMock)
     const [lockStatus, setLockStatus] = useState(warmup.unlocked)
 
     useEffect(() => {
@@ -60,8 +62,19 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
     // NOTE
     // Temporary implementation until backend is hooked up
     useEffect(() => {
-        return
-    }, [week])
+        fetch(`${API_URL}/warmups/${week}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => setWarmup(data))
+            .catch((err) => {
+                console.error("Fetch failed, using fallback data:", err);
+                setWarmup(warmupMock); // use predefined dummy data
+            });
+    }, [week]);
 
     // NOTE
     // This function implementation is temporary
@@ -86,7 +99,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             onChange={(e: ChangeEvent<HTMLSelectElement>) => setWeek(Number(e.target.value))}
                         >
                             {Array.from({length: totalWarmups}, (_, index) => index + 1).map((value) => (
-                                <option>
+                                <option key={value}>
                                     Week {value}
                                 </option>
                             ))}
@@ -103,7 +116,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             <div key={obj.id} className="question-block">
                                 <h3>{obj.question}</h3>
                                 {obj.options.map((a) => (
-                                    <h4>- {a}</h4>
+                                    <h4 key={a}>- {a}</h4>
                                 ))}
                                 <h4>Answer: {obj.answer}</h4>
                             </div>
@@ -130,7 +143,6 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                     <td>{s.score}</td>
                                 </tr>
                             )} */}
-                            <div>Temp broken :(</div>
                         </tbody>
                         </table>
                     </div>
