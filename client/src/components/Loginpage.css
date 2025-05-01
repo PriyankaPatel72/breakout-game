@@ -1,0 +1,133 @@
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 134px); 
+    background-image: linear-gradient(rgba(32, 163, 189, 0.86), rgb(79, 13, 185));
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.login-card {
+    background-color: rgb(12, 12, 12);
+    border-radius: 20px;
+    box-shadow: 0 0 20px white;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 10px #08e9f9;
+    font-family: Impact, sans-serif;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #08e9f9;
+}
+
+.card-body {
+    padding: 25px;
+    color: white;
+    font-family: Impact, sans-serif;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 500;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.form-input {
+    padding: 12px 15px;
+    border: 1px solid #08e9f9;
+    border-radius: 10px;
+    background-color: white; 
+    color: #333; 
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    border-color: #08e9f9;
+    outline: none;
+    box-shadow: 0 0 10px #08e9f9;
+    background-color: white; 
+}
+
+.form-actions {
+    margin-top: 10px;
+}
+
+.sign-in-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #111;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: Impact, sans-serif;
+    border: 1px solid white;
+}
+
+.sign-in-btn:hover {
+    background-color: #1f3aaf;
+    box-shadow: 0 0 20px #08e9f9;
+}
+
+.forgot-password-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-password-link {
+    color: #08e9f9;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s;
+    font-family: Impact, sans-serif;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
