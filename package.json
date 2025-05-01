@@ -3,7 +3,9 @@
         "start": "concurrently \"cd client && npm run dev\" \"cd server && fastapi dev main.py\""
     },
     "dependencies": {
-        "react": "^19.1.0",
+        "react": "^19.1.0"
+    },
+    "devDependencies": {
         "concurrently": "^9.1.2"
     }
 }

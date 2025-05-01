@@ -9,7 +9,7 @@ import Footer from './Footer.tsx';
 
 export default function Newuser() {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -17,7 +17,7 @@ export default function Newuser() {
         e.preventDefault();
         console.log('Creating new account:');
         console.log('Username:', username);
-        console.log('Email:', email);
+        console.log('Display Name:', displayName);
         console.log('Password:', password);
         // Add registration logic here
     };
@@ -39,20 +39,20 @@ export default function Newuser() {
                                         type="text"
                                         id="username"
                                         value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
+                                        onChange={e => setUsername(e.target.value)}
                                         placeholder="Choose a username"
                                         required
                                         className="form-input"
                                     />
                                 </div>
                                 <div className="input-group">
-                                    <label htmlFor="email">Email</label>
+                                    <label htmlFor="displayName">Display Name</label>
                                     <input
-                                        type="email"
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Enter your email"
+                                        type="text"
+                                        id="displayName"
+                                        value={displayName}
+                                        onChange={e => setDisplayName(e.target.value)}
+                                        placeholder="Enter your display name"
                                         required
                                         className="form-input"
                                     />
@@ -63,7 +63,7 @@ export default function Newuser() {
                                         type="password"
                                         id="password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={e => setPassword(e.target.value)}
                                         placeholder="Create a password"
                                         required
                                         className="form-input"
@@ -75,7 +75,7 @@ export default function Newuser() {
                                         type="password"
                                         id="confirmPassword"
                                         value={confirmPassword}
-                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        onChange={e => setConfirmPassword(e.target.value)}
                                         placeholder="Confirm your password"
                                         required
                                         className="form-input"
@@ -87,7 +87,12 @@ export default function Newuser() {
                                     </button>
                                 </div>
                                 <div className="signup-link-container">
-                                    <p>Already have an account? <Link to="/loginPage" className="signup-link">Sign In</Link></p>
+                                    <p>
+                                        Already have an account?{' '}
+                                        <Link to="/loginPage" className="signup-link">
+                                            Sign In
+                                        </Link>
+                                    </p>
                                 </div>
                             </form>
                         </div>
