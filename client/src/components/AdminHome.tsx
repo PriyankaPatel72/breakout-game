@@ -115,8 +115,8 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                         {warmup.questions.map((obj) => (
                             <div key={obj.id} className="question-block">
                                 <h3>{obj.question}</h3>
-                                {obj.options.map((a) => (
-                                    <h4 key={a}>- {a}</h4>
+                                {obj.options.map((a, index) => (
+                                    <h4 key={`${obj.id}-${a}-${index}`}>- {a}</h4>
                                 ))}
                                 <h4>Answer: {obj.answer}</h4>
                             </div>
