@@ -7,6 +7,7 @@ import image from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
 const API_URL = "http://127.0.0.1:8000"
+const caller = "string"
 
 const totalWarmups = 3
 const warmupMock = {
@@ -31,6 +32,18 @@ const warmupMock = {
     ],
     unlocked: false
 }
+const statsMock = [
+    {
+        name: "bob",
+        correct: 3,
+        total: 4
+    },
+    {
+        name: "aob",
+        correct: 2,
+        total: 4
+    }
+]
 
 /**
  * `AdminHome` is a functional component that renders the admin home page.
@@ -46,12 +59,23 @@ const warmupMock = {
  * <AdminHome admin={adminUser} />
  * ```
  */
+function getStatsForWeek(statsArray: any[], week: number) {
+    return statsArray
+        .filter(entry => entry.stats.hasOwnProperty(week))
+        .map(entry => ({
+            name: entry.displayName,
+            correct: entry.stats[week].correct,
+            total: entry.stats[week].total
+        }));
+}
+
 function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     const navigate = useNavigate();
     const [week, setWeek] = useState(1);
     const [warmup, setWarmup] = useState(warmupMock)
     const [lockStatus, setLockStatus] = useState(warmup.unlocked)
+    const [stats, setStats] = useState(statsMock)
 
     useEffect(() => {
         if (!props.admin) {
@@ -75,6 +99,25 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                 setWarmup(warmupMock); // use predefined dummy data
             });
     }, [week]);
+
+    // GET stats
+    useEffect(() => {
+        console.log(`Fetching stats for week ${week}`)
+        fetch(`${API_URL}/admin/stats?caller=${caller}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setStats(getStatsForWeek(data, week)) // temp
+            })
+            .catch((err) => {
+                console.error("Fetch failed, using fallback data:", err);
+                setStats(statsMock); // use predefined dummy data
+            });
+    }, [week])
 
     // NOTE
     // This function implementation is temporary
@@ -137,12 +180,12 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                                 </tr>
                             </thead>
                             <tbody>
-                            {/* {warmups[warmup].students.map((s, i) =>
+                            {stats.map((s, i) =>
                                 <tr key={i}>
                                     <td>{s.name}</td>
-                                    <td>{s.score}</td>
+                                    <td>{s.correct}/{s.total}</td>
                                 </tr>
-                            )} */}
+                            )}
                         </tbody>
                         </table>
                     </div>
