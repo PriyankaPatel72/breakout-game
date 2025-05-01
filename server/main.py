@@ -35,7 +35,6 @@ async def signup(signup_req: SignupRequest):
         "username": signup_req.username,
         "password": password,
         "displayName": signup_req.displayName,
-        "avatarUrl" : signup_req.avatarUrl,
         "isAdmin" : False, # ONLY STUDENTS CAN SIGN UP 
         "score" : 0,
         "stats" : {},
@@ -62,7 +61,6 @@ async def create_admin(admin_req: AdminCreateRequest, caller: str):
         "username": admin_req.username,
         "password": password,
         "displayName": admin_req.displayName,
-        "avatarUrl" : admin_req.avatarUrl,
         "isAdmin" : True, 
         "score" : 0,
         "stats" : {},
@@ -216,7 +214,6 @@ async def get_leaderboard():
             {
                 "username": user['username'],
                 "displayName": user['displayName'],
-                "avatarUrl": user["avatarUrl"],
                 "score": user.get("score", 0)
             }
             for user in users
