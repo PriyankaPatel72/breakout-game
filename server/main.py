@@ -120,6 +120,19 @@ async def unlock_warmup(id: int, caller: str):
         raise HTTPException()
     return {"message": "Warmup unlocked"}
 
+#get a specific warmup 
+@app.get('/admin/warmups/{id}')
+async def get_warmup(id: int):
+    warmup = await db.warmups.find_one({"id": id})
+    
+    if not warmup:
+        raise HTTPException()
+
+    return {
+        "id": warmup["id"],
+        "questions": warmup["questions"]
+    }
+
 #access unlocked warmups
 @app.get('/warmups')
 async def view_unlocked_warmups():
