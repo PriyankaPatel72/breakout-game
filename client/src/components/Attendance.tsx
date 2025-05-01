@@ -6,17 +6,20 @@ import Footer from './Footer';
 import image from '../assets/adc.png'
 import { JSX } from 'react/jsx-runtime';
 
+const API_URL = "http://127.0.0.1:8000"
+const caller = "string"
+
 type AttendanceRecord = {
     [week: number]: boolean;
 };
   
 type Student = {
-    name: string;
+    username: string;
     attendance: AttendanceRecord;
 };
-const AttendanceDB: Student[] = [
+const AttendanceDBMock: Student[] = [
     {
-        name: "bob",
+        username: "bob",
         attendance: {
             1: true,
             2: false,
@@ -31,7 +34,7 @@ const AttendanceDB: Student[] = [
         }
     },
     {
-        name: "aob",
+        username: "aob",
         attendance: {
             1: true,
             2: false,
@@ -39,7 +42,7 @@ const AttendanceDB: Student[] = [
         }
     },
     {
-        name: "cob",
+        username: "cob",
         attendance: {
             1: true,
             2: false,
@@ -51,8 +54,9 @@ const AttendanceDB: Student[] = [
 function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
 
     const navigate = useNavigate();
-    const weekNumbers = Array.from(
-        new Set(AttendanceDB.flatMap(student => Object.keys(student.attendance).map(Number)))
+    const [attendance, setAttendance] = useState(AttendanceDBMock)
+    let weekNumbers = Array.from(
+        new Set(attendance.flatMap(student => Object.keys(student.attendance).map(Number)))
     ).sort((a, b) => Number(a) - Number(b));
 
     // Route back to home page if not admin
@@ -61,6 +65,22 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
             navigate("/")
         }
     }, [props.admin, navigate])
+
+    useEffect(() => {
+        console.log("Fetching attendance data")
+        fetch(`${API_URL}/admin/attendance?caller=${caller}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => setAttendance(data))
+            .catch((err) => {
+                console.error("Fetch failed, using fallback data:", err);
+                setAttendance(AttendanceDBMock); // use predefined dummy data
+            });
+    }, [])
 
     return (
         <>
@@ -79,12 +99,12 @@ function Attendance(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {AttendanceDB
+                            {attendance
                             .slice()
-                            .sort((a, b) => a.name.localeCompare(b.name))
+                            .sort((a, b) => a.username.localeCompare(b.username))
                             .map((student, idx) => (
                             <tr key={idx}>
-                                <td>{student.name}</td>
+                                <td>{student.username}</td>
                                 {weekNumbers.map((week, wIdx) => {
                                 const attended = student.attendance[week];
                                     return (
