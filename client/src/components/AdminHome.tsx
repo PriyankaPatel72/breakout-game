@@ -59,9 +59,9 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
         }
     }, [props.admin, navigate])
 
-    // NOTE
-    // Temporary implementation until backend is hooked up
+    // GET the warmup 
     useEffect(() => {
+        console.log(`Fetching data for week ${week}`)
         fetch(`${API_URL}/warmups/${week}`)
             .then((res) => {
                 if (!res.ok) {
@@ -99,7 +99,7 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             onChange={(e: ChangeEvent<HTMLSelectElement>) => setWeek(Number(e.target.value))}
                         >
                             {Array.from({length: totalWarmups}, (_, index) => index + 1).map((value) => (
-                                <option key={value}>
+                                <option key={value} value={value}>
                                     Week {value}
                                 </option>
                             ))}
