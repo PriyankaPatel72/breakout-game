@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 #from bson import ObjectId
-from models import SignupRequest, LoginRequest, AdminCreateRequest, WarmupCreateRequest, QuestionCreateRequest
+from models import SignupRequest, LoginRequest, AdminCreateRequest, WarmupCreateRequest, QuestionCreateRequest, SubmitRequest
 from db import db
 from auth import get_pw_hash, get_user, format_admin, format_student
 
@@ -139,32 +139,63 @@ async def get_warmup(id: int):
         "questions": warmup["questions"]
     }
 
-#update attendance after warmup completed
-@app.patch('/users/{username}/attendance')
-def update_attendance():
-    return None
-
-#update stats after warmup completed
-@app.patch('/users/{username}/stats/{warmupId}')
-def update_stats():
-    return None
-
 #if user needs to see their stats
-@app.get('/users/{username}/stats')
+@app.get('/users/{username}/stats') #me
 def get_stats():
     return None
 
 #admin to see all users' stats
-@app.get('/admin/stats')
+@app.get('/admin/stats') #me
 def get_all_stats():
     return None
 
+#ATTENDANCE HANDLING
+#admin needs to see students' attendance 
+async def get_attendance(caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+    
+    users = await db.users.find({}, {"_id": 0, "username": 1, "attendance": 1}).to_list(length=100)
 
+    return users
+
+ 
+
+#SCORE HANDLING
+#everyone sees scores on leaderboard
+# @app.get('/leaderboard')
+# def get_leaderboard():
+#     users = 
 
 #HANDLING WARMUP QUIZ LOGIC:
 #user submits warmup quiz - handle attendance + stats
-@app.post('/users/{username}/warmups/{id}/submit')
-def submit():
-    return None
+@app.post('/users/{username}/warmups/{id}/submit') #me
+async def submit(username: str, id: int, sub_req: SubmitRequest):
+    user = await db.users.find_one({"username" : username})
+    if not user: 
+        raise HTTPException(); #user not found 
+    
+    warmup = await db.warmups.find_one({"id" : id})
+    if not warmup:
+        raise HTTPException(); #warmup not found
+    
+    correct = 0
+    total = len(warmup["questions"])
 
-#handle admin quiz creation --> allow for marking of correct answer(s), make them all short form questions
+    for question in warmup["questions"]:
+        if sub_req.answers.get(str(question["id"])) == question['answer']:
+            correct += 1
+
+    await db.users.update_one(
+        {"username" : username},
+        {
+            "$set": {
+                f"stats.{id}": {"correct": correct, "total": total}, 
+                f"attendance.{id}": True,
+                f"score": user.get("score",0) + correct
+            }
+        }
+    )
+
+    return {"message" : "hooray (submitted warmup)", "correct" : correct, "total" : total}
