@@ -12,36 +12,39 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
   const warmup = {
     id: 1,
     questions: [
-        {
-            id: 1,
-            question: "What color is grass?",
-            options: [
-                "Green", "Pink", "Blue", "Industrial Gray"
-            ],
-            answer: "Green"
-        },
-        {
-            id: 2,
-            question: "What color is the Sun?",
-            options: [
-                "Yellow", "Green", "Blue", "let me go stare at it rq"
-            ],
-            answer: "Yellow"
-        }
+      { id: 1, question: "What color is grass?", options: ["Green","Pink","Blue","Industrial Gray"], answer: "Green" },
+      { id: 2, question: "What color is the Sun?", options: ["Yellow","Green","Blue","let me go stare at it rq"], answer: "Yellow" }
     ],
     unlocked: false
   };
+
   const [answers, setAnswers] = useState<Record<number,string>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  // <-- add this:
+  const isComplete = warmup.questions.every(q => answers[q.id] !== undefined);
 
   const handleSelect = (qid: number, opt: string) => {
     setAnswers(prev => {
-        if (prev[qid] === opt) {
-            const updated = { ...prev };
-            delete updated[qid];
-            return updated;
-        }
-        return { ...prev, [qid]: opt };
+      if (prev[qid] === opt) {
+        const updated = { ...prev };
+        delete updated[qid];
+        return updated;
+      }
+      return { ...prev, [qid]: opt };
     });
+  };
+
+  const handleSubmit = () => {
+    const correct = warmup.questions.reduce(
+      (total, q) => total + (answers[q.id] === q.answer ? 1 : 0),
+      0
+    );
+    setScore(correct);
+    setSubmitted(true);
+    setShowModal(true);
   };
 
   return (
@@ -56,8 +59,8 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
                 {q.options.map(opt => (
                   <button
                     key={opt}
-                    className={`quiz-option ${answers[q.id]===opt?'selected':''}`}
-                    onClick={() => handleSelect(q.id,opt)}
+                    className={`quiz-option ${answers[q.id] === opt ? 'selected' : ''}`}
+                    onClick={() => handleSelect(q.id, opt)}
                   >
                     {opt}
                   </button>
@@ -65,9 +68,31 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
               </div>
             </div>
           ))}
-          <button className="quiz-submit">Submit</button>
+
+          {!submitted && (
+            <button
+              className="quiz-submit"
+              onClick={handleSubmit}
+              disabled={!isComplete}         // disable until complete
+            >
+              Submit
+            </button>
+          )}
         </div>
       </div>
+
+      {showModal && (
+        <div className="score-modal" onClick={() => setShowModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <h2>Quiz Complete</h2>
+            <p>You scored <strong>{score}</strong> out of <strong>{warmup.questions.length}</strong></p>
+            <button className="modal-close" onClick={() => setShowModal(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );
