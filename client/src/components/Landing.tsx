@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import Header from './Header.tsx';
 import Footer from './Footer.tsx';
-import Leaderboard from './leaderboard.tsx';
+import Leaderboard from './Leaderboard.tsx';
 import games from './games.tsx';
 
 function Landing({ admin }) {

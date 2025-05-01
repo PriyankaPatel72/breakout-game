@@ -1,15 +1,36 @@
-import React from 'react';
+import { useState, useEffect, ChangeEvent } from 'react'
 import './leaderboard.css';
 
-const students = [
-    { id: 1, name: 'Alice', score: 95 },
-    { id: 2, name: 'Bob', score: 88 },
-    { id: 3, name: 'Charlie', score: 82 },
-    { id: 4, name: 'Diana', score: 78 },
-    { id: 5, name: 'Eve', score: 70 },
+const studentsMock = [
+    { username: 1, displayName: 'Alice', score: 95 },
+    { username: 2, displayName: 'Bob', score: 88 },
+    { username: 3, displayName: 'Charlie', score: 82 },
+    { username: 4, displayName: 'Diana', score: 78 },
+    { username: 5, displayName: 'Eve', score: 70 },
 ];
 
+const API_URL = "http://127.0.0.1:8000"
+
 export default function Leaderboard() {
+
+    const [students, setStudents] = useState(studentsMock)
+
+    useEffect(() => {
+        console.log("Fetching leaderboard data")
+        fetch(`${API_URL}/leaderboard`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then((data) => setStudents(data))
+            .catch((err) => {
+                console.error("Fetch failed, using fallback data:", err);
+                setStudents(studentsMock); // use predefined dummy data
+            });
+    }, [])
+
     return (
         <div className="leaderboard-wrapper">
             <div className="leaderboard-container">
@@ -29,9 +50,9 @@ export default function Leaderboard() {
                             {students
                                 .sort((a, b) => b.score - a.score) 
                                 .map((student, index) => (
-                                    <tr key={student.id} className={`rank-${index + 1}`}>
+                                    <tr key={student.username} className={`rank-${index + 1}`}>
                                         <td className="rank-cell">{index + 1}</td>
-                                        <td className="name-cell">{student.name}</td>
+                                        <td className="name-cell">{student.displayName}</td>
                                         <td className="score-cell">{student.score}</td>
                                     </tr>
                             ))}
