@@ -181,9 +181,9 @@ function AdminHome(props: JSX.IntrinsicAttributes & { admin: any; }) {
                             </thead>
                             <tbody>
                             {stats.map((s, i) =>
-                                <tr key={i}>
-                                    <td>{s.name}</td>
-                                    <td>{s.correct}/{s.total}</td>
+                                <tr key={`${s}-${i}`}>
+                                    <td key={`${s}-${i}-${s.name}-${s.correct}`}>{s.name}</td>
+                                    <td key={`${s}-${i}-${s.correct}-${s.name}`}>{s.correct}/{s.total}</td>
                                 </tr>
                             )}
                         </tbody>
