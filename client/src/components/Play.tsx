@@ -14,16 +14,13 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
     questions: [
       { id: 1, question: "What color is grass?", options: ["Green","Pink","Blue","Industrial Gray"], answer: "Green" },
       { id: 2, question: "What color is the Sun?", options: ["Yellow","Green","Blue","let me go stare at it rq"], answer: "Yellow" }
-    ],
-    unlocked: false
+    ]
   };
 
   const [answers, setAnswers] = useState<Record<number,string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [showModal, setShowModal] = useState(false);
 
-  // <-- add this:
   const isComplete = warmup.questions.every(q => answers[q.id] !== undefined);
 
   const handleSelect = (qid: number, opt: string) => {
@@ -44,7 +41,9 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
     );
     setScore(correct);
     setSubmitted(true);
-    setShowModal(true);
+
+    alert(`You scored ${correct} out of ${warmup.questions.length}`);
+    navigate('/');
   };
 
   return (
@@ -69,30 +68,15 @@ export default function Play({ admin, week }: { admin: any; week: number }) {
             </div>
           ))}
 
-          {!submitted && (
-            <button
-              className="quiz-submit"
-              onClick={handleSubmit}
-              disabled={!isComplete}         // disable until complete
-            >
-              Submit
-            </button>
-          )}
+          <button
+            className="quiz-submit"
+            onClick={handleSubmit}
+            disabled={!isComplete || submitted}
+          >
+            Submit
+          </button>
         </div>
       </div>
-
-      {showModal && (
-        <div className="score-modal" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h2>Quiz Complete</h2>
-            <p>You scored <strong>{score}</strong> out of <strong>{warmup.questions.length}</strong></p>
-            <button className="modal-close" onClick={() => setShowModal(false)}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
       <Footer />
     </>
   );
