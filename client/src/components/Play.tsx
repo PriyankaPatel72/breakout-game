@@ -1,11 +1,15 @@
-import { useState, useEffect, ChangeEvent } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import '../App.css'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../App.css';
+import './Play.css';
 import Header from './Header';
 import Footer from './Footer';
-import { JSX } from 'react/jsx-runtime';
 
-const warmup = {
+export default function Play({ admin, week }: { admin: any; week: number }) {
+  const navigate = useNavigate();
+  useEffect(() => { if (week === 0) navigate('/') }, [week, navigate]);
+
+  const warmup = {
     id: 1,
     questions: [
         {
@@ -26,58 +30,45 @@ const warmup = {
         }
     ],
     unlocked: false
-}
+  };
+  const [answers, setAnswers] = useState<Record<number,string>>({});
 
-function Play(props: JSX.IntrinsicAttributes & { admin: any; } & { week: any }) {
-    
-    const navigate = useNavigate()
-    const [answers, setAnswers] = useState<{[key: number]: string}>({});
-
-    const handleSelect = (questionId: number, option: string) => {
-        setAnswers(prev => {
-            if (prev[questionId] === option) {
-                const updated = { ...prev };
-                delete updated[questionId];
-                return updated;
-            }
-            return { ...prev, [questionId]: option };
-        });
-    }
-
-    // Returning to home if props are invalid
-    useEffect(() => {
-        if (props.week == 0) {
-            navigate("/")
+  const handleSelect = (qid: number, opt: string) => {
+    setAnswers(prev => {
+        if (prev[qid] === opt) {
+            const updated = { ...prev };
+            delete updated[qid];
+            return updated;
         }
-    }, [props.admin, navigate])
+        return { ...prev, [qid]: opt };
+    });
+  };
 
-    return (
-        <>
-            <Header admin={props.admin}></Header>
-
-            <div className="main-screen">
-                <div>
-                    {warmup.questions.map((q) => 
-                        <div className="quiz-question" key={q.id}>
-                            <h3>{q.question}</h3>
-                            {q.options.map((opt) => (
-                                <button
-                                    key={opt}
-                                    onClick={() => handleSelect(q.id, opt)}
-                                    className={`quiz-option ${answers[q.id] === opt ? "selected" : ""}`}>
-                                    {opt}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                    <button className="quiz-submit">Submit</button>
-                </div>
+  return (
+    <>
+      <Header admin={admin} />
+      <div className="play-container">
+        <div className="quiz-wrapper">
+          {warmup.questions.map(q => (
+            <div key={q.id} className="quiz-question">
+              <h3>{q.question}</h3>
+              <div className="options">
+                {q.options.map(opt => (
+                  <button
+                    key={opt}
+                    className={`quiz-option ${answers[q.id]===opt?'selected':''}`}
+                    onClick={() => handleSelect(q.id,opt)}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
             </div>
-
-            <Footer></Footer>
-        </>
-    )
-
+          ))}
+          <button className="quiz-submit">Submit</button>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
 }
-
-export default Play
