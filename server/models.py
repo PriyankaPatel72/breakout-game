@@ -29,7 +29,7 @@ class StudentResponse(BaseModel):
     isAdmin: bool
     score: int
     stats: Dict[str, GameStats]
-    attendance: Dict[int, bool]
+    attendance: Dict[str, bool]
 
 class AdminResponse(BaseModel):
     username: str

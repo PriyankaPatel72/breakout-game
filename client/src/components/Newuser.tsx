@@ -7,15 +7,19 @@ import './Loginpage.css';
 import Header from './Header.tsx';
 import Footer from './Footer.tsx';
 
-export default function Loginpage() {
+export default function Newuser() {
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        console.log('Creating new account:');
         console.log('Username:', username);
+        console.log('Email:', email);
         console.log('Password:', password);
-        // Add authentication logic here
+        // Add registration logic here
     };
 
     return (
@@ -25,7 +29,7 @@ export default function Loginpage() {
                 <div className="login-container">
                     <div className="card login-card">
                         <div className="card-header">
-                            <h2>Sign In</h2>
+                            <h2>Create Account</h2>
                         </div>
                         <div className="card-body">
                             <form onSubmit={handleSubmit} className="login-form">
@@ -36,7 +40,19 @@ export default function Loginpage() {
                                         id="username"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
-                                        placeholder="Enter your username"
+                                        placeholder="Choose a username"
+                                        required
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Enter your email"
                                         required
                                         className="form-input"
                                     />
@@ -48,18 +64,30 @@ export default function Loginpage() {
                                         id="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Enter your password"
+                                        placeholder="Create a password"
+                                        required
+                                        className="form-input"
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder="Confirm your password"
                                         required
                                         className="form-input"
                                     />
                                 </div>
                                 <div className="form-actions">
                                     <button type="submit" className="sign-in-btn">
-                                        Sign In
+                                        Create Account
                                     </button>
                                 </div>
                                 <div className="signup-link-container">
-                                    <p>Don't have an account? <Link to="/newUser" className="signup-link">Sign Up</Link></p>
+                                    <p>Already have an account? <Link to="/loginPage" className="signup-link">Sign In</Link></p>
                                 </div>
                             </form>
                         </div>

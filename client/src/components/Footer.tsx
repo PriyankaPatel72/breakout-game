@@ -7,9 +7,9 @@ export default function Footer() {
         <footer className="footer">
             <div className="footer-content">
                 <div className="footer-section">
-                    <h3>Follow Us</h3>
+                    <h3>Check us Out!</h3>
                     <div className="social-icons">
-                        <a href="https://appdevclub.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                        <a href="https://appdevclub.com/" target="_blank" rel="noopener noreferrer">Website</a>
                     </div>
                 </div>
             </div>

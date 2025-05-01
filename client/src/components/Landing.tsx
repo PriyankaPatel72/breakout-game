@@ -1,44 +1,45 @@
-import { useState } from 'react'
 import React from 'react';
-import '../App.css'
+import '../App.css';
 import Header from './Header.tsx';
-import { JSX } from 'react/jsx-runtime';
-import AccountMenu from './AccountMenu.tsx';
-import games from './games.tsx';
-import image from '../assets/adc.png'
-import Leaderboard from './Leaderboard.tsx';
 import Footer from './Footer.tsx';
+import Leaderboard from './leaderboard.tsx';
+import games from './games.tsx';
 
-function Landing(props: JSX.IntrinsicAttributes & { admin: any; }) {
-
+function Landing({ admin }) {
     return (
-
-        <>
-            <Header admin={props.admin}></Header>
-
-            <div className="main-screen">
-                <div id="game-list">
-                    <h1 id="game-title">Weekly Assingments</h1>
-                    {games.map((game, index) => (
-                        <div key={index} className="individual-game">
-                            <h3>{game.name}</h3>
-                            <p>{game.description}</p>
-                            <button onClick={() => props.admin.startGame(game.id)}>Play</button>
-                        </div>
-                    ))}
-                </div>
-                <div id="leaderboard">
-                    <h1 id="leaderboard-title"> Leaderboard</h1>
+        <div className="app-container">
+            <Header admin={admin} />
+            <main className="main-screen">
+                <div className="container landing-content-wrapper">
+                    <section className="landing-left-column">
+                        <Leaderboard />
+                    </section>
                     
-                    <div id="leaderboard-container">
-                    </div>
+                    <section className="landing-right-column">
+                        <h2 className="section-title">Weekly Warmups</h2>
+                        <div className="game-list-container">
+                            {games.map((game, index) => (
+                                <article key={index} className="individual-game">
+                                    <h3 className="game-name">{game.name}</h3>
+                                    <p className="game-description">{game.description}</p>
+                                    <div className="game-actions">
+                                        <button 
+                                            className="game-button"
+                                            onClick={() => admin && admin.startGame(game.id)}
+                                        >
+                                            Play Now
+                                        </button>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
                 </div>
-            </div>
+            </main>
         
-            <Footer></Footer>
-        </>
-    )
-
+          
+        </div>
+    );
 }
 
 export default Landing;

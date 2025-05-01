@@ -141,18 +141,56 @@ async def get_warmup(id: int):
 
 #if user needs to see their stats
 @app.get('/users/{username}/warmups/{id}/stats') #me
-def get_stats():
-    return None
+async def get_stats(username: str, id: int):
+    user = await db.users.find_one({"username" : username})
+    if not user:
+        raise HTTPException() #couldn't find user
+    
+    warmup = await db.warmups.find_one({"id" : id})
+    if not warmup:
+        raise HTTPException() #couldn't find warmup
+    
+    if str(id) not in user.get("attendance", {}):
+        raise HTTPException() #warmup not yet completed
+    
+    stats = user.get("stats", {}).get(str(id))
+    if not stats:
+        raise HTTPException() #idk some issue w stats here then
+    
+    return stats
+
 
 #admin to see all users' stats
 @app.get('/admin/stats') #me
-def get_all_stats():
-    return None
+async def get_all_stats(caller: str):
+    admin = await db.users.find_one({"username": caller})
+    if not admin or not admin.get("isAdmin"):
+        raise HTTPException() #ur not an admin bruh chill
+    
+    students = await db.users.find({"isAdmin" : False}).to_list(length=None)
+
+    student_stats = [
+        {
+            "displayName": student["displayName"],
+            "stats": student.get("stats", {})
+        }
+        for student in students
+    ]
+    
+    return student_stats
 
 #ATTENDANCE HANDLING
 #admin needs to see students' attendance 
-def get_attendance():
-    return None
+async def get_attendance(caller: str):
+    caller_admin = await db.users.find_one({"username": caller})
+    if not caller_admin or not caller_admin.get("isAdmin"):
+        raise HTTPException()
+    
+    users = await db.users.find({}, {"_id": 0, "username": 1, "attendance": 1}).to_list(length=100)
+
+    return users
+
+ 
 
 #SCORE HANDLING
 #everyone sees scores on leaderboard

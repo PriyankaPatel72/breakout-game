@@ -1,37 +1,43 @@
-import { useState, useEffect, ChangeEvent } from 'react'
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import '../App.css'
-import logo from '../assets/adc.png'
-import { JSX } from 'react/jsx-runtime';
+import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import logo from '../assets/adc.png';
+import '../App.css';
 
-function Header(props: JSX.IntrinsicAttributes & { admin: any; }) {
+interface HeaderProps { admin: boolean; }
 
-    const navigate = useNavigate();
- 
-    return (
-        <>
-            <nav className="navbar">
-                <div className="logo" onClick={() => navigate("/")}>
-                    <img src={logo} alt="Home"/>
-                </div>
-                <div className="nav-buttons">
-                    {props.admin ? (
-                        <>
-                            <Link to="/attendance" className="nav-link">Attendance</Link>
-                            <Link to="/admin" className="nav-link">Admin</Link>
-                            <Link to="/" className="nav-link">Logout</Link>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/" className="nav-link">Login</Link>
-                            <Link to="/" className="nav-link">Signup</Link>
-                        </>
-                    )}
-                </div>
-            </nav>
-        </>
-    )
+export default function Header({ admin }: HeaderProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  const isAuthPage = ['/loginPage', '/newUser'].includes(location.pathname);
+  const isHomePage = location.pathname === '/';
+
+  return (
+    <nav className="navbar">
+      <div className="logo" onClick={() => navigate('/')}>
+        <img src={logo} alt="Logo" />
+      </div>
+      {!isAuthPage && (
+        <div className="nav-buttons">
+          {isHomePage ? (
+            <>
+              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/attendance" className="nav-link">Attendance</Link>
+              <Link to="/admin" className="nav-link">Admin</Link>
+              <Link to="/logout" className="nav-link">Logout</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="nav-link">Home</Link>
+              {admin && <Link to="/attendance" className="nav-link">Attendance</Link>}
+              {admin && <Link to="/admin" className="nav-link">Admin</Link>}
+              {!admin && <Link to="/loginPage" className="nav-link">Login</Link>}
+              {!admin && <Link to="/newUser" className="nav-link">Sign Up</Link>}
+              <Link to="/logout" className="nav-link">Logout</Link>
+            </>
+          )}
+        </div>
+      )}
+    </nav>
+  );
 }
-
-export default Header
